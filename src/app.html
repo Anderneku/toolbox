@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
+		<meta name="viewport" content="width=device-width" />
+		%sveltekit.head%
+
+		<style>
+			*{
+			font-family: Arial, Helvetica, sans-serif;
+			user-select: none;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+		}
+
+		::-webkit-scrollbar {
+			background: none;
+			cursor: pointer;
+			height: 6px;
+			width: 6px;
+		}
+
+		::-webkit-scrollbar-thumb {
+			background: white;
+			border-radius: 10px;
+			height: 6px;
+			width: 6px;
+			cursor: pointer;
+		}
+
+		h1{
+			overflow-x: auto;
+		}
+
+		body{
+			background: #202222;
+		}
+
+		.hamburger{
+			position: absolute;
+			display: flex;
+			flex-direction: row;
+			z-index: 201;
+			margin: 10px;
+			gap: 4px;
+			height: 20px;
+			padding: 10px;
+			cursor: pointer;
+			transition: all .2s ease-in-out;
+			border-radius: 5px;
+
+		}
+
+		.ting{
+			width: 3.5px;
+			height: 20px;
+			background: white;
+		}
+		
+		.rot{
+			width: 20px;
+			height: 3px;
+		}
+
+		.rotter{
+			flex-direction: column;
+		}
+
+		.hover{
+			background: green;
+		}
+
+
+		button{
+			z-index: 100;
+		}
+
+		.menu-bar{
+			position: absolute;
+			height: 100vh;
+			width: 250px;
+			overflow-y: auto;
+			z-index: 200;
+			background: #1a1a1a;
+			transition: all .2s linear;
+			border-top-right-radius: 10px;
+			border-bottom-right-radius: 10px;
+		}
+		ul{
+			margin-top: 50px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			gap: 0px;
+		}
+		li{
+			list-style: none;
+		}
+
+		ul li a{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-decoration: none;
+			color: white;
+			width: 100%;
+			height: 50px;
+			font-size: 15pt;
+		}
+
+		ul li a:hover{
+			background: #414141;
+		}
+
+		.move{
+			transition: all .2s ease-in-out;
+     		transform: translateX(-100%);
+    	}
+		</style>
+	</head>
+	<data-sveltekit-preload-data="hover">
+		<div class="hamburger">
+			<div class="ting"></div>
+			<div class="ting"></div>
+			<div class="ting"></div>
+		</div>
+		<div class="menu-bar">
+			<ul>
+				<li><a class="menu-item" href="/">Calculator</a></li>
+				<li><a class="menu-item" href="/trigonometry">Scientific</a></li>
+				<li><a class="menu-item" href="/quadratic">Quadratic</a></li>
+				<li><a class="menu-item" href="/vectors">Vectors</a></li>
+				<li><a class="menu-item" href="/conversions/length">Length</a></li>
+				<li><a class="menu-item" href="/conversions/weight">Weight</a></li>
+				<li><a class="menu-item" href="/conversions/temperature">Temperature</a></li>
+				<li><a class="menu-item" href="/conversions/time">Time</a></li>
+				<li><a class="menu-item" href="/conversions/data">Data</a></li>
+			</ul>
+		</div>
+		<div style="display: contents">%sveltekit.body%</div>
+
+	</body>
+	<script>
+		addEventListener("contextmenu", (event) => {});
+
+		oncontextmenu = (event) => {event.preventDefault()};
+
+		const hamburger = document.querySelector(".hamburger");
+		const ting = document.querySelectorAll(".ting");
+		const menu_bar = document.querySelector(".menu-bar");
+		const menu_item = document.querySelectorAll(".menu-item");
+
+		menu_item.forEach((item, index, arr) =>{
+			item.addEventListener("click", () =>{
+				menu_bar.classList.add("move");
+				ting.forEach((e, index, arr) => {
+					e.classList.toggle("rot");
+					hamburger.classList.toggle("rotter");
+				});
+			})
+		})
+		
+		hamburger.addEventListener("click", () =>{
+			menu_bar.classList.toggle("move");
+			ting.forEach((e, index, arr) => {
+				e.classList.toggle("rot");
+				hamburger.classList.toggle("rotter");
+			});
+		})
+
+		hamburger.addEventListener("mouseover", () =>{
+			hamburger.classList.add("hover");
+		})
+		hamburger.addEventListener("mouseleave", () =>{
+			hamburger.classList.remove("hover");
+		})
+
+	</script>
+</html>
